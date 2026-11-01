@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYNDICATE - Global Video Distributor</title>
+    <!-- Tailwind CSS for Ultra-Modern Dark Theme -->
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        body { background-color: #0b0f19; color: #f3f4f6; font-family: system-ui, sans-serif; }
+        .gradient-border { border-image: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899) 1; }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen flex flex-col justify-between">
+
+    <!-- Header Section -->
+    <header class="mb-6 border-b border-gray-800 pb-4 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">SYNDICATE CONTROL</h1>
+            <p class="text-xs text-gray-400 mt-1">One Upload. Every Language. Every Platform.</p>
+        </div>
+        <span class="px-2.5 py-1 bg-green-500/10 text-green-400 rounded-full text-xs font-mono border border-green-500/20 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> SYSTEM LIVE
+        </span>
+    </header>
+
+    <!-- Main Command Center Grid -->
+    <main class="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow">
+        
+        <!-- Column 1: Video Ingestion Wire -->
+        <section class="bg-gray-900/50 border border-gray-800 p-5 rounded-xl flex flex-col gap-4">
+            <h2 class="text-sm font-bold tracking-widest text-blue-400 uppercase">1. Ingestion Wire</h2>
+            
+            <!-- Gallery Video Picker Slot -->
+            <div id="dropzone" class="border-2 border-dashed border-gray-700 hover:border-purple-500 rounded-xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[160px] bg-gray-950/40">
+                <svg class="w-8 h-8 text-gray-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                <p class="text-xs font-medium">Choose a short video from gallery</p>
+                <p class="text-[10px] text-gray-500 mt-1">MP4, MOV (Max 100MB)</p>
+                <input type="file" id="videoFile" class="hidden" accept="video/*">
+            </div>
+
+            <!-- Metadata Engine Slots -->
+            <div>
+                <label class="text-[11px] font-bold text-gray-400 block mb-1 uppercase tracking-wider">Base Caption</label>
+                <textarea id="captionInput" rows="2" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs focus:border-purple-500 outline-none resize-none" placeholder="Enter base caption in Hindi/English..."></textarea>
+            </div>
+            <div>
+                <label class="text-[11px] font-bold text-gray-400 block mb-1 uppercase tracking-wider">Global Tags</label>
+                <input type="text" id="tagsInput" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs focus:border-purple-500 outline-none" placeholder="#shorts #reels #viral">
+            </div>
+        </section>
+
+        <!-- Column 2: AI Dubbing & Lip-Sync Engine Matrix -->
+        <section class="bg-gray-900/50 border border-gray-800 p-5 rounded-xl flex flex-col gap-4">
+            <h2 class="text-sm font-bold tracking-widest text-purple-400 uppercase">2. AI Translation Matrix</h2>
+            <p class="text-[11px] text-gray-400">Select target languages for automated voice-cloning & lip-sync frame generation via ElevenLabs/HeyGen:</p>
+            
+            <!-- Language Matrix Grid Selection -->
+            <div class="grid grid-cols-2 gap-2" id="languageMatrix">
+                <button type="button" class="lang-btn p-2.5 bg-gray-950 border border-gray-800 text-xs rounded-lg font-medium text-left hover:border-purple-500 transition flex items-center justify-between" onclick="toggleLanguage(this, 'en')">🇺🇸 English <span class="indicator w-2 h-2 rounded-full bg-gray-800"></span></button>
+                <button type="button" class="lang-btn p-2.5 bg-gray-950 border border-gray-800 text-xs rounded-lg font-medium text-left hover:border-purple-500 transition flex items-center justify-between" onclick="toggleLanguage(this, 'es')">🇪🇸 Spanish <span class="indicator w-2 h-2 rounded-full bg-gray-800"></span></button>
+                <button type="button" class="lang-btn p-2.5 bg-gray-950 border border-gray-800 text-xs rounded-lg font-medium text-left hover:border-purple-500 transition flex items-center justify-between" onclick="toggleLanguage(this, 'ar')">🇦🇪 Arabic <span class="indicator w-2 h-2 rounded-full bg-gray-800"></span></button>
+                <button type="button" class="lang-btn p-2.5 bg-gray-950 border border-gray-800 text-xs rounded-lg font-medium text-left hover:border-purple-500 transition flex items-center justify-between" onclick="toggleLanguage(this, 'pt')">🇧🇷 Portuguese <span class="indicator w-2 h-2 rounded-full bg-gray-800"></span></button>
+                <button type="button" class="lang-btn p-2.5 bg-gray-950 border border-gray-800 text-xs rounded-lg font-medium text-left hover:border-purple-500 transition flex items-center justify-between" onclick="toggleLanguage(this, 'fr')">🇫🇷 French <span class="indicator w-2 h-2 rounded-full bg-gray-800"></span></button>
+                <button type="button" class="lang-btn p-2.5 bg-gray-950 border border-gray-800 text-xs rounded-lg font-medium text-left hover:border-purple-500 transition flex items-center justify-between" onclick="toggleLanguage(this, 'de')">🇩🇪 German <span class="indicator w-2 h-2 rounded-full bg-gray-800"></span></button>
+                <button type="button" class="lang-btn p-2.5 bg-gray-950 border border-gray-800 text-xs rounded-lg font-medium text-left hover:border-purple-500 transition flex items-center justify-between" onclick="toggleLanguage(this, 'ja')">🇯🇵 Japanese <span class="indicator w-2 h-2 rounded-full bg-gray-800"></span></button>
+                <button type="button" class="lang-btn p-2.5 bg-gray-950 border border-gray-800 text-xs rounded-lg font-medium text-left hover:border-purple-500 transition flex items-center justify-between" onclick="toggleLanguage(this, 'ru')">🇷🇺 Russian <span class="indicator w-2 h-2 rounded-full bg-gray-800"></span></button>
+            </div>
+        </section>
+
+        <!-- Column 3: Outbound Syndication Matrix & Execution -->
+        <section class="bg-gray-900/50 border border-gray-800 p-5 rounded-xl flex flex-col justify-between gap-4">
+            <div class="flex flex-col gap-4">
+                <h2 class="text-sm font-bold tracking-widest text-pink-400 uppercase">3. Outbound Syndication</h2>
+                
+                <!-- Platform Targets Grid Selector -->
+                <div class="flex flex-col gap-2">
+                    <label class="flex items-center justify-between p-3 bg-gray-950 border border-gray-800 rounded-xl cursor-pointer hover:border-pink-500/50">
+                        <span class="text-xs font-semibold flex items-center gap-2">📺 YouTube Shorts</span>
+                        <input type="checkbox" id="ytTarget" checked class="w-4 h-4 accent-pink-500">
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-gray-950 border border-gray-800 rounded-xl cursor-pointer hover:border-pink-500/50">
+                        <span class="text-xs font-semibold flex items-center gap-2">📸 Instagram Reels</span>
+                        <input type="checkbox" id="igTarget" checked class="w-4 h-4 accent-pink-500">
+                    </label>
+                    <label class="flex items-center justify-between p-3 bg-gray-950 border border-gray-800 rounded-xl cursor-pointer hover:border-pink-500/50">
+                        <span class="text-xs font-semibold flex items-center gap-2">🎵 TikTok Videos</span>
+                        <input type="checkbox" id="tkTarget" checked class="w-4 h-4 accent-pink-500">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Execution Action Block -->
+            <button onclick="firePipeline()" class="w-full py-3.5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 font-bold tracking-widest text-xs rounded-xl shadow-lg hover:brightness-110 active:scale-[0.99] transition uppercase">
+                LAUNCH GLOBAL SYNDICATION
+            </button>
+        </section>
+    </main>
+
+    <!-- Bottom Secret Configuration Console Section (The Keys Wire) -->
+    <footer class="mt-6 border-t border-gray-800 pt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-950/60 p-4 border border-gray-800 rounded-xl">
+            <h3 class="text-xs font-bold tracking-wider text-gray-400 mb-2 uppercase">🔌 1. Cloud Warehouse Wire (Supabase Config)</h3>
+            <div class="flex flex-col gap-2">
+                <input type="text" id="sbUrl" class="w-full bg-gray-900 border border-gray-800 rounded p-1.5 text-[10px] font-mono outline-none focus:border-blue-500" placeholder="Paste Supabase URL here...">
+                <input type="password" id="sbKey" class="w-full bg-gray-900 border border-gray-800 rounded p-1.5 text-[10px] font-mono outline-none focus:border-blue-500" placeholder="Paste Supabase Anon Key here...">
+            </div>
+        </div>
+        <div class="bg-gray-950/60 p-4 border border-gray-800 rounded-xl">
+            <h3 class="text-xs font-bold tracking-wider text-gray-400 mb-2 uppercase">🔑 2. AI & Syndication Token Matrix</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
